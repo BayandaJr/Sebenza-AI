@@ -9,8 +9,98 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ResponsibleAiRouteImport } from './routes/responsible-ai'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ReportRouteImport } from './routes/report'
+import { Route as QualityRouteImport } from './routes/quality'
+import { Route as PromptsRouteImport } from './routes/prompts'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MeetingsRouteImport } from './routes/meetings'
+import { Route as LearningRouteImport } from './routes/learning'
+import { Route as FollowupRouteImport } from './routes/followup'
+import { Route as EmailRouteImport } from './routes/email'
+import { Route as DecisionRouteImport } from './routes/decision'
+import { Route as CareerRouteImport } from './routes/career'
+import { Route as ActionsRouteImport } from './routes/actions'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResponsibleAiRoute = ResponsibleAiRouteImport.update({
+  id: '/responsible-ai',
+  path: '/responsible-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityRoute = QualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromptsRoute = PromptsRouteImport.update({
+  id: '/prompts',
+  path: '/prompts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingsRoute = MeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearningRoute = LearningRouteImport.update({
+  id: '/learning',
+  path: '/learning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowupRoute = FollowupRouteImport.update({
+  id: '/followup',
+  path: '/followup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecisionRoute = DecisionRouteImport.update({
+  id: '/decision',
+  path: '/decision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareerRoute = CareerRouteImport.update({
+  id: '/career',
+  path: '/career',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActionsRoute = ActionsRouteImport.update({
+  id: '/actions',
+  path: '/actions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +109,242 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/actions': typeof ActionsRoute
+  '/career': typeof CareerRoute
+  '/decision': typeof DecisionRoute
+  '/email': typeof EmailRoute
+  '/followup': typeof FollowupRoute
+  '/learning': typeof LearningRoute
+  '/meetings': typeof MeetingsRoute
+  '/profile': typeof ProfileRoute
+  '/prompts': typeof PromptsRoute
+  '/quality': typeof QualityRoute
+  '/report': typeof ReportRoute
+  '/research': typeof ResearchRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/actions': typeof ActionsRoute
+  '/career': typeof CareerRoute
+  '/decision': typeof DecisionRoute
+  '/email': typeof EmailRoute
+  '/followup': typeof FollowupRoute
+  '/learning': typeof LearningRoute
+  '/meetings': typeof MeetingsRoute
+  '/profile': typeof ProfileRoute
+  '/prompts': typeof PromptsRoute
+  '/quality': typeof QualityRoute
+  '/report': typeof ReportRoute
+  '/research': typeof ResearchRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/actions': typeof ActionsRoute
+  '/career': typeof CareerRoute
+  '/decision': typeof DecisionRoute
+  '/email': typeof EmailRoute
+  '/followup': typeof FollowupRoute
+  '/learning': typeof LearningRoute
+  '/meetings': typeof MeetingsRoute
+  '/profile': typeof ProfileRoute
+  '/prompts': typeof PromptsRoute
+  '/quality': typeof QualityRoute
+  '/report': typeof ReportRoute
+  '/research': typeof ResearchRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/actions'
+    | '/career'
+    | '/decision'
+    | '/email'
+    | '/followup'
+    | '/learning'
+    | '/meetings'
+    | '/profile'
+    | '/prompts'
+    | '/quality'
+    | '/report'
+    | '/research'
+    | '/responsible-ai'
+    | '/settings'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/actions'
+    | '/career'
+    | '/decision'
+    | '/email'
+    | '/followup'
+    | '/learning'
+    | '/meetings'
+    | '/profile'
+    | '/prompts'
+    | '/quality'
+    | '/report'
+    | '/research'
+    | '/responsible-ai'
+    | '/settings'
+    | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/actions'
+    | '/career'
+    | '/decision'
+    | '/email'
+    | '/followup'
+    | '/learning'
+    | '/meetings'
+    | '/profile'
+    | '/prompts'
+    | '/quality'
+    | '/report'
+    | '/research'
+    | '/responsible-ai'
+    | '/settings'
+    | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActionsRoute: typeof ActionsRoute
+  CareerRoute: typeof CareerRoute
+  DecisionRoute: typeof DecisionRoute
+  EmailRoute: typeof EmailRoute
+  FollowupRoute: typeof FollowupRoute
+  LearningRoute: typeof LearningRoute
+  MeetingsRoute: typeof MeetingsRoute
+  ProfileRoute: typeof ProfileRoute
+  PromptsRoute: typeof PromptsRoute
+  QualityRoute: typeof QualityRoute
+  ReportRoute: typeof ReportRoute
+  ResearchRoute: typeof ResearchRoute
+  ResponsibleAiRoute: typeof ResponsibleAiRoute
+  SettingsRoute: typeof SettingsRoute
+  TasksRoute: typeof TasksRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/responsible-ai': {
+      id: '/responsible-ai'
+      path: '/responsible-ai'
+      fullPath: '/responsible-ai'
+      preLoaderRoute: typeof ResponsibleAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality': {
+      id: '/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof QualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prompts': {
+      id: '/prompts'
+      path: '/prompts'
+      fullPath: '/prompts'
+      preLoaderRoute: typeof PromptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meetings': {
+      id: '/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof MeetingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learning': {
+      id: '/learning'
+      path: '/learning'
+      fullPath: '/learning'
+      preLoaderRoute: typeof LearningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/followup': {
+      id: '/followup'
+      path: '/followup'
+      fullPath: '/followup'
+      preLoaderRoute: typeof FollowupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decision': {
+      id: '/decision'
+      path: '/decision'
+      fullPath: '/decision'
+      preLoaderRoute: typeof DecisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/career': {
+      id: '/career'
+      path: '/career'
+      fullPath: '/career'
+      preLoaderRoute: typeof CareerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actions': {
+      id: '/actions'
+      path: '/actions'
+      fullPath: '/actions'
+      preLoaderRoute: typeof ActionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +357,21 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActionsRoute: ActionsRoute,
+  CareerRoute: CareerRoute,
+  DecisionRoute: DecisionRoute,
+  EmailRoute: EmailRoute,
+  FollowupRoute: FollowupRoute,
+  LearningRoute: LearningRoute,
+  MeetingsRoute: MeetingsRoute,
+  ProfileRoute: ProfileRoute,
+  PromptsRoute: PromptsRoute,
+  QualityRoute: QualityRoute,
+  ReportRoute: ReportRoute,
+  ResearchRoute: ResearchRoute,
+  ResponsibleAiRoute: ResponsibleAiRoute,
+  SettingsRoute: SettingsRoute,
+  TasksRoute: TasksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
