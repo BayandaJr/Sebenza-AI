@@ -1,35 +1,17 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
 import {
-  LayoutDashboard,
-  Mail,
-  FileText,
-  ListChecks,
-  BookOpen,
-  Send,
-  FileBarChart,
-  Library,
-  ShieldCheck,
-  KanbanSquare,
-  Scale,
-  GraduationCap,
-  Briefcase,
-  Sparkles,
-  Settings,
-  User,
-  Shield,
+  LayoutDashboard, Mail, FileText, ListChecks, BookOpen, Send, FileBarChart,
+  Library, ShieldCheck, KanbanSquare, Scale, GraduationCap, Briefcase, Sparkles,
+  Settings, User, Shield, Users,
 } from "lucide-react";
 
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
+  SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { getMyRoles } from "@/lib/auth.functions";
 
 const featureItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -56,6 +38,15 @@ const systemItems = [
 export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const isActive = (u: string) => (u === "/" ? pathname === "/" : pathname.startsWith(u));
+  const getRoles = useServerFn(getMyRoles);
+  const { data: roles } = useQuery({
+    queryKey: ["my-roles"],
+    queryFn: () => getRoles(),
+    retry: false,
+    staleTime: 60_000,
+  });
+  const isAdmin = roles?.isAdmin ?? false;
+
 
   return (
     <Sidebar collapsible="icon">
@@ -105,6 +96,23 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {isAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Admin</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/admin/users")}>
+                    <Link to="/admin/users" className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Users</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
     </Sidebar>
   );

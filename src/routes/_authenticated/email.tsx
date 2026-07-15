@@ -21,7 +21,7 @@ import {
 import { generateAI } from "@/lib/ai.functions";
 import { bumpMetric } from "@/lib/store";
 
-export const Route = createFileRoute("/email")({
+export const Route = createFileRoute("/_authenticated/email")({
   head: () => ({
     meta: [
       { title: "Smart Email Generator · AI Workplace" },

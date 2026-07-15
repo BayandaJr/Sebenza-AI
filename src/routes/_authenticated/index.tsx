@@ -29,7 +29,7 @@ import { Progress } from "@/components/ui/progress";
 import { defaultMetrics, type Metrics } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "Dashboard · AI Workplace Assistant Pro" },

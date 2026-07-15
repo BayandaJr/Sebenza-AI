@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { useLocalStorage, bumpMetric } from "@/lib/store";
 
-export const Route = createFileRoute("/actions")({
+export const Route = createFileRoute("/_authenticated/actions")({
   head: () => ({
     meta: [
       { title: "Action Tracker" },

@@ -14,7 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { generateAI } from "@/lib/ai.functions";
 import { useLocalStorage } from "@/lib/store";
 
-export const Route = createFileRoute("/learning")({
+export const Route = createFileRoute("/_authenticated/learning")({
   head: () => ({
     meta: [
       { title: "AI Learning Assistant" },

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { generateAI } from "@/lib/ai.functions";
 import { bumpMetric } from "@/lib/store";
 
-export const Route = createFileRoute("/research")({
+export const Route = createFileRoute("/_authenticated/research")({
   head: () => ({
     meta: [
       { title: "AI Research Assistant" },
