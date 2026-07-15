@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -25,90 +27,107 @@ import { Route as AuthenticatedEmailRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedDecisionRouteImport } from './routes/_authenticated/decision'
 import { Route as AuthenticatedCareerRouteImport } from './routes/_authenticated/career'
 import { Route as AuthenticatedActionsRouteImport } from './routes/_authenticated/actions'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
-  id: '/_authenticated/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
-  id: '/_authenticated/tasks',
+  id: '/tasks',
   path: '/tasks',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/_authenticated/settings',
+  id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedResponsibleAiRoute =
   AuthenticatedResponsibleAiRouteImport.update({
-    id: '/_authenticated/responsible-ai',
+    id: '/responsible-ai',
     path: '/responsible-ai',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedResearchRoute = AuthenticatedResearchRouteImport.update({
-  id: '/_authenticated/research',
+  id: '/research',
   path: '/research',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedReportRoute = AuthenticatedReportRouteImport.update({
-  id: '/_authenticated/report',
+  id: '/report',
   path: '/report',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedQualityRoute = AuthenticatedQualityRouteImport.update({
-  id: '/_authenticated/quality',
+  id: '/quality',
   path: '/quality',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPromptsRoute = AuthenticatedPromptsRouteImport.update({
-  id: '/_authenticated/prompts',
+  id: '/prompts',
   path: '/prompts',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/_authenticated/profile',
+  id: '/profile',
   path: '/profile',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMeetingsRoute = AuthenticatedMeetingsRouteImport.update({
-  id: '/_authenticated/meetings',
+  id: '/meetings',
   path: '/meetings',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedLearningRoute = AuthenticatedLearningRouteImport.update({
-  id: '/_authenticated/learning',
+  id: '/learning',
   path: '/learning',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedFollowupRoute = AuthenticatedFollowupRouteImport.update({
-  id: '/_authenticated/followup',
+  id: '/followup',
   path: '/followup',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEmailRoute = AuthenticatedEmailRouteImport.update({
-  id: '/_authenticated/email',
+  id: '/email',
   path: '/email',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDecisionRoute = AuthenticatedDecisionRouteImport.update({
-  id: '/_authenticated/decision',
+  id: '/decision',
   path: '/decision',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCareerRoute = AuthenticatedCareerRouteImport.update({
-  id: '/_authenticated/career',
+  id: '/career',
   path: '/career',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedActionsRoute = AuthenticatedActionsRouteImport.update({
-  id: '/_authenticated/actions',
+  id: '/actions',
   path: '/actions',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRoute
   '/actions': typeof AuthenticatedActionsRoute
   '/career': typeof AuthenticatedCareerRoute
   '/decision': typeof AuthenticatedDecisionRoute
@@ -124,9 +143,10 @@ export interface FileRoutesByFullPath {
   '/responsible-ai': typeof AuthenticatedResponsibleAiRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
-  '/': typeof AuthenticatedIndexRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof AuthRoute
   '/actions': typeof AuthenticatedActionsRoute
   '/career': typeof AuthenticatedCareerRoute
   '/decision': typeof AuthenticatedDecisionRoute
@@ -143,9 +163,12 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/_authenticated/actions': typeof AuthenticatedActionsRoute
   '/_authenticated/career': typeof AuthenticatedCareerRoute
   '/_authenticated/decision': typeof AuthenticatedDecisionRoute
@@ -162,10 +185,13 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
+    | '/auth'
     | '/actions'
     | '/career'
     | '/decision'
@@ -181,9 +207,10 @@ export interface FileRouteTypes {
     | '/responsible-ai'
     | '/settings'
     | '/tasks'
-    | '/'
+    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth'
     | '/actions'
     | '/career'
     | '/decision'
@@ -200,8 +227,11 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/'
+    | '/admin/users'
   id:
     | '__root__'
+    | '/_authenticated'
+    | '/auth'
     | '/_authenticated/actions'
     | '/_authenticated/career'
     | '/_authenticated/decision'
@@ -218,9 +248,153 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
     | '/_authenticated/'
+    | '/_authenticated/admin/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/responsible-ai': {
+      id: '/_authenticated/responsible-ai'
+      path: '/responsible-ai'
+      fullPath: '/responsible-ai'
+      preLoaderRoute: typeof AuthenticatedResponsibleAiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/research': {
+      id: '/_authenticated/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof AuthenticatedResearchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/report': {
+      id: '/_authenticated/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof AuthenticatedReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quality': {
+      id: '/_authenticated/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof AuthenticatedQualityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/prompts': {
+      id: '/_authenticated/prompts'
+      path: '/prompts'
+      fullPath: '/prompts'
+      preLoaderRoute: typeof AuthenticatedPromptsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/meetings': {
+      id: '/_authenticated/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof AuthenticatedMeetingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/learning': {
+      id: '/_authenticated/learning'
+      path: '/learning'
+      fullPath: '/learning'
+      preLoaderRoute: typeof AuthenticatedLearningRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/followup': {
+      id: '/_authenticated/followup'
+      path: '/followup'
+      fullPath: '/followup'
+      preLoaderRoute: typeof AuthenticatedFollowupRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/email': {
+      id: '/_authenticated/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof AuthenticatedEmailRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/decision': {
+      id: '/_authenticated/decision'
+      path: '/decision'
+      fullPath: '/decision'
+      preLoaderRoute: typeof AuthenticatedDecisionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/career': {
+      id: '/_authenticated/career'
+      path: '/career'
+      fullPath: '/career'
+      preLoaderRoute: typeof AuthenticatedCareerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/actions': {
+      id: '/_authenticated/actions'
+      path: '/actions'
+      fullPath: '/actions'
+      preLoaderRoute: typeof AuthenticatedActionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+  }
+}
+
+interface AuthenticatedRouteRouteChildren {
   AuthenticatedActionsRoute: typeof AuthenticatedActionsRoute
   AuthenticatedCareerRoute: typeof AuthenticatedCareerRoute
   AuthenticatedDecisionRoute: typeof AuthenticatedDecisionRoute
@@ -237,126 +411,10 @@ export interface RootRouteChildren {
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/responsible-ai': {
-      id: '/_authenticated/responsible-ai'
-      path: '/responsible-ai'
-      fullPath: '/responsible-ai'
-      preLoaderRoute: typeof AuthenticatedResponsibleAiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/research': {
-      id: '/_authenticated/research'
-      path: '/research'
-      fullPath: '/research'
-      preLoaderRoute: typeof AuthenticatedResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/report': {
-      id: '/_authenticated/report'
-      path: '/report'
-      fullPath: '/report'
-      preLoaderRoute: typeof AuthenticatedReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/quality': {
-      id: '/_authenticated/quality'
-      path: '/quality'
-      fullPath: '/quality'
-      preLoaderRoute: typeof AuthenticatedQualityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/prompts': {
-      id: '/_authenticated/prompts'
-      path: '/prompts'
-      fullPath: '/prompts'
-      preLoaderRoute: typeof AuthenticatedPromptsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/meetings': {
-      id: '/_authenticated/meetings'
-      path: '/meetings'
-      fullPath: '/meetings'
-      preLoaderRoute: typeof AuthenticatedMeetingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/learning': {
-      id: '/_authenticated/learning'
-      path: '/learning'
-      fullPath: '/learning'
-      preLoaderRoute: typeof AuthenticatedLearningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/followup': {
-      id: '/_authenticated/followup'
-      path: '/followup'
-      fullPath: '/followup'
-      preLoaderRoute: typeof AuthenticatedFollowupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/email': {
-      id: '/_authenticated/email'
-      path: '/email'
-      fullPath: '/email'
-      preLoaderRoute: typeof AuthenticatedEmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/decision': {
-      id: '/_authenticated/decision'
-      path: '/decision'
-      fullPath: '/decision'
-      preLoaderRoute: typeof AuthenticatedDecisionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/career': {
-      id: '/_authenticated/career'
-      path: '/career'
-      fullPath: '/career'
-      preLoaderRoute: typeof AuthenticatedCareerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/actions': {
-      id: '/_authenticated/actions'
-      path: '/actions'
-      fullPath: '/actions'
-      preLoaderRoute: typeof AuthenticatedActionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
-}
-
-const rootRouteChildren: RootRouteChildren = {
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedActionsRoute: AuthenticatedActionsRoute,
   AuthenticatedCareerRoute: AuthenticatedCareerRoute,
   AuthenticatedDecisionRoute: AuthenticatedDecisionRoute,
@@ -373,6 +431,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
