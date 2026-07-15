@@ -1,35 +1,17 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
 import {
-  LayoutDashboard,
-  Mail,
-  FileText,
-  ListChecks,
-  BookOpen,
-  Send,
-  FileBarChart,
-  Library,
-  ShieldCheck,
-  KanbanSquare,
-  Scale,
-  GraduationCap,
-  Briefcase,
-  Sparkles,
-  Settings,
-  User,
-  Shield,
+  LayoutDashboard, Mail, FileText, ListChecks, BookOpen, Send, FileBarChart,
+  Library, ShieldCheck, KanbanSquare, Scale, GraduationCap, Briefcase, Sparkles,
+  Settings, User, Shield, Users,
 } from "lucide-react";
 
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
+  SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { getMyRoles } from "@/lib/auth.functions";
 
 const featureItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
