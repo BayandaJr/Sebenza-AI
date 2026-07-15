@@ -38,6 +38,15 @@ const systemItems = [
 export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const isActive = (u: string) => (u === "/" ? pathname === "/" : pathname.startsWith(u));
+  const getRoles = useServerFn(getMyRoles);
+  const { data: roles } = useQuery({
+    queryKey: ["my-roles"],
+    queryFn: () => getRoles(),
+    retry: false,
+    staleTime: 60_000,
+  });
+  const isAdmin = roles?.isAdmin ?? false;
+
 
   return (
     <Sidebar collapsible="icon">
