@@ -12,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import { generateAI } from "@/lib/ai.functions";
 import { AIOutput, LoadingOutput } from "@/components/ai-output";
 
-export const Route = createFileRoute("/quality")({
+export const Route = createFileRoute("/_authenticated/quality")({
   head: () => ({
     meta: [
       { title: "AI Quality Checker" },

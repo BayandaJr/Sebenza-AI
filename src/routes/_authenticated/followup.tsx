@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { generateAI } from "@/lib/ai.functions";
 
-export const Route = createFileRoute("/followup")({
+export const Route = createFileRoute("/_authenticated/followup")({
   head: () => ({
     meta: [
       { title: "AI Follow-Up Email Generator" },

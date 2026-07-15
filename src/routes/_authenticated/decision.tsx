@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { generateAI } from "@/lib/ai.functions";
 
-export const Route = createFileRoute("/decision")({
+export const Route = createFileRoute("/_authenticated/decision")({
   head: () => ({
     meta: [
       { title: "AI Decision Support" },

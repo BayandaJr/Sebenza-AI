@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { useLocalStorage } from "@/lib/store";
 
-export const Route = createFileRoute("/prompts")({
+export const Route = createFileRoute("/_authenticated/prompts")({
   head: () => ({
     meta: [
       { title: "Prompt Library" },

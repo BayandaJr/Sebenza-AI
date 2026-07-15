@@ -9,163 +9,163 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TasksRouteImport } from './routes/tasks'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ResponsibleAiRouteImport } from './routes/responsible-ai'
-import { Route as ResearchRouteImport } from './routes/research'
-import { Route as ReportRouteImport } from './routes/report'
-import { Route as QualityRouteImport } from './routes/quality'
-import { Route as PromptsRouteImport } from './routes/prompts'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as MeetingsRouteImport } from './routes/meetings'
-import { Route as LearningRouteImport } from './routes/learning'
-import { Route as FollowupRouteImport } from './routes/followup'
-import { Route as EmailRouteImport } from './routes/email'
-import { Route as DecisionRouteImport } from './routes/decision'
-import { Route as CareerRouteImport } from './routes/career'
-import { Route as ActionsRouteImport } from './routes/actions'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedResponsibleAiRouteImport } from './routes/_authenticated/responsible-ai'
+import { Route as AuthenticatedResearchRouteImport } from './routes/_authenticated/research'
+import { Route as AuthenticatedReportRouteImport } from './routes/_authenticated/report'
+import { Route as AuthenticatedQualityRouteImport } from './routes/_authenticated/quality'
+import { Route as AuthenticatedPromptsRouteImport } from './routes/_authenticated/prompts'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedMeetingsRouteImport } from './routes/_authenticated/meetings'
+import { Route as AuthenticatedLearningRouteImport } from './routes/_authenticated/learning'
+import { Route as AuthenticatedFollowupRouteImport } from './routes/_authenticated/followup'
+import { Route as AuthenticatedEmailRouteImport } from './routes/_authenticated/email'
+import { Route as AuthenticatedDecisionRouteImport } from './routes/_authenticated/decision'
+import { Route as AuthenticatedCareerRouteImport } from './routes/_authenticated/career'
+import { Route as AuthenticatedActionsRouteImport } from './routes/_authenticated/actions'
 
-const TasksRoute = TasksRouteImport.update({
-  id: '/tasks',
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/_authenticated/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
+  id: '/_authenticated/tasks',
   path: '/tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/_authenticated/settings',
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResponsibleAiRoute = ResponsibleAiRouteImport.update({
-  id: '/responsible-ai',
-  path: '/responsible-ai',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResearchRoute = ResearchRouteImport.update({
-  id: '/research',
+const AuthenticatedResponsibleAiRoute =
+  AuthenticatedResponsibleAiRouteImport.update({
+    id: '/_authenticated/responsible-ai',
+    path: '/responsible-ai',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedResearchRoute = AuthenticatedResearchRouteImport.update({
+  id: '/_authenticated/research',
   path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReportRoute = ReportRouteImport.update({
-  id: '/report',
+const AuthenticatedReportRoute = AuthenticatedReportRouteImport.update({
+  id: '/_authenticated/report',
   path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QualityRoute = QualityRouteImport.update({
-  id: '/quality',
+const AuthenticatedQualityRoute = AuthenticatedQualityRouteImport.update({
+  id: '/_authenticated/quality',
   path: '/quality',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PromptsRoute = PromptsRouteImport.update({
-  id: '/prompts',
+const AuthenticatedPromptsRoute = AuthenticatedPromptsRouteImport.update({
+  id: '/_authenticated/prompts',
   path: '/prompts',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/_authenticated/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeetingsRoute = MeetingsRouteImport.update({
-  id: '/meetings',
+const AuthenticatedMeetingsRoute = AuthenticatedMeetingsRouteImport.update({
+  id: '/_authenticated/meetings',
   path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearningRoute = LearningRouteImport.update({
-  id: '/learning',
+const AuthenticatedLearningRoute = AuthenticatedLearningRouteImport.update({
+  id: '/_authenticated/learning',
   path: '/learning',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FollowupRoute = FollowupRouteImport.update({
-  id: '/followup',
+const AuthenticatedFollowupRoute = AuthenticatedFollowupRouteImport.update({
+  id: '/_authenticated/followup',
   path: '/followup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmailRoute = EmailRouteImport.update({
-  id: '/email',
+const AuthenticatedEmailRoute = AuthenticatedEmailRouteImport.update({
+  id: '/_authenticated/email',
   path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DecisionRoute = DecisionRouteImport.update({
-  id: '/decision',
+const AuthenticatedDecisionRoute = AuthenticatedDecisionRouteImport.update({
+  id: '/_authenticated/decision',
   path: '/decision',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CareerRoute = CareerRouteImport.update({
-  id: '/career',
+const AuthenticatedCareerRoute = AuthenticatedCareerRouteImport.update({
+  id: '/_authenticated/career',
   path: '/career',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActionsRoute = ActionsRouteImport.update({
-  id: '/actions',
+const AuthenticatedActionsRoute = AuthenticatedActionsRouteImport.update({
+  id: '/_authenticated/actions',
   path: '/actions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/actions': typeof ActionsRoute
-  '/career': typeof CareerRoute
-  '/decision': typeof DecisionRoute
-  '/email': typeof EmailRoute
-  '/followup': typeof FollowupRoute
-  '/learning': typeof LearningRoute
-  '/meetings': typeof MeetingsRoute
-  '/profile': typeof ProfileRoute
-  '/prompts': typeof PromptsRoute
-  '/quality': typeof QualityRoute
-  '/report': typeof ReportRoute
-  '/research': typeof ResearchRoute
-  '/responsible-ai': typeof ResponsibleAiRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
+  '/actions': typeof AuthenticatedActionsRoute
+  '/career': typeof AuthenticatedCareerRoute
+  '/decision': typeof AuthenticatedDecisionRoute
+  '/email': typeof AuthenticatedEmailRoute
+  '/followup': typeof AuthenticatedFollowupRoute
+  '/learning': typeof AuthenticatedLearningRoute
+  '/meetings': typeof AuthenticatedMeetingsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/prompts': typeof AuthenticatedPromptsRoute
+  '/quality': typeof AuthenticatedQualityRoute
+  '/report': typeof AuthenticatedReportRoute
+  '/research': typeof AuthenticatedResearchRoute
+  '/responsible-ai': typeof AuthenticatedResponsibleAiRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/actions': typeof ActionsRoute
-  '/career': typeof CareerRoute
-  '/decision': typeof DecisionRoute
-  '/email': typeof EmailRoute
-  '/followup': typeof FollowupRoute
-  '/learning': typeof LearningRoute
-  '/meetings': typeof MeetingsRoute
-  '/profile': typeof ProfileRoute
-  '/prompts': typeof PromptsRoute
-  '/quality': typeof QualityRoute
-  '/report': typeof ReportRoute
-  '/research': typeof ResearchRoute
-  '/responsible-ai': typeof ResponsibleAiRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
+  '/actions': typeof AuthenticatedActionsRoute
+  '/career': typeof AuthenticatedCareerRoute
+  '/decision': typeof AuthenticatedDecisionRoute
+  '/email': typeof AuthenticatedEmailRoute
+  '/followup': typeof AuthenticatedFollowupRoute
+  '/learning': typeof AuthenticatedLearningRoute
+  '/meetings': typeof AuthenticatedMeetingsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/prompts': typeof AuthenticatedPromptsRoute
+  '/quality': typeof AuthenticatedQualityRoute
+  '/report': typeof AuthenticatedReportRoute
+  '/research': typeof AuthenticatedResearchRoute
+  '/responsible-ai': typeof AuthenticatedResponsibleAiRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/actions': typeof ActionsRoute
-  '/career': typeof CareerRoute
-  '/decision': typeof DecisionRoute
-  '/email': typeof EmailRoute
-  '/followup': typeof FollowupRoute
-  '/learning': typeof LearningRoute
-  '/meetings': typeof MeetingsRoute
-  '/profile': typeof ProfileRoute
-  '/prompts': typeof PromptsRoute
-  '/quality': typeof QualityRoute
-  '/report': typeof ReportRoute
-  '/research': typeof ResearchRoute
-  '/responsible-ai': typeof ResponsibleAiRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
+  '/_authenticated/actions': typeof AuthenticatedActionsRoute
+  '/_authenticated/career': typeof AuthenticatedCareerRoute
+  '/_authenticated/decision': typeof AuthenticatedDecisionRoute
+  '/_authenticated/email': typeof AuthenticatedEmailRoute
+  '/_authenticated/followup': typeof AuthenticatedFollowupRoute
+  '/_authenticated/learning': typeof AuthenticatedLearningRoute
+  '/_authenticated/meetings': typeof AuthenticatedMeetingsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/prompts': typeof AuthenticatedPromptsRoute
+  '/_authenticated/quality': typeof AuthenticatedQualityRoute
+  '/_authenticated/report': typeof AuthenticatedReportRoute
+  '/_authenticated/research': typeof AuthenticatedResearchRoute
+  '/_authenticated/responsible-ai': typeof AuthenticatedResponsibleAiRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/actions'
     | '/career'
     | '/decision'
@@ -181,9 +181,9 @@ export interface FileRouteTypes {
     | '/responsible-ai'
     | '/settings'
     | '/tasks'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/actions'
     | '/career'
     | '/decision'
@@ -199,179 +199,180 @@ export interface FileRouteTypes {
     | '/responsible-ai'
     | '/settings'
     | '/tasks'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/actions'
-    | '/career'
-    | '/decision'
-    | '/email'
-    | '/followup'
-    | '/learning'
-    | '/meetings'
-    | '/profile'
-    | '/prompts'
-    | '/quality'
-    | '/report'
-    | '/research'
-    | '/responsible-ai'
-    | '/settings'
-    | '/tasks'
+    | '/_authenticated/actions'
+    | '/_authenticated/career'
+    | '/_authenticated/decision'
+    | '/_authenticated/email'
+    | '/_authenticated/followup'
+    | '/_authenticated/learning'
+    | '/_authenticated/meetings'
+    | '/_authenticated/profile'
+    | '/_authenticated/prompts'
+    | '/_authenticated/quality'
+    | '/_authenticated/report'
+    | '/_authenticated/research'
+    | '/_authenticated/responsible-ai'
+    | '/_authenticated/settings'
+    | '/_authenticated/tasks'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ActionsRoute: typeof ActionsRoute
-  CareerRoute: typeof CareerRoute
-  DecisionRoute: typeof DecisionRoute
-  EmailRoute: typeof EmailRoute
-  FollowupRoute: typeof FollowupRoute
-  LearningRoute: typeof LearningRoute
-  MeetingsRoute: typeof MeetingsRoute
-  ProfileRoute: typeof ProfileRoute
-  PromptsRoute: typeof PromptsRoute
-  QualityRoute: typeof QualityRoute
-  ReportRoute: typeof ReportRoute
-  ResearchRoute: typeof ResearchRoute
-  ResponsibleAiRoute: typeof ResponsibleAiRoute
-  SettingsRoute: typeof SettingsRoute
-  TasksRoute: typeof TasksRoute
+  AuthenticatedActionsRoute: typeof AuthenticatedActionsRoute
+  AuthenticatedCareerRoute: typeof AuthenticatedCareerRoute
+  AuthenticatedDecisionRoute: typeof AuthenticatedDecisionRoute
+  AuthenticatedEmailRoute: typeof AuthenticatedEmailRoute
+  AuthenticatedFollowupRoute: typeof AuthenticatedFollowupRoute
+  AuthenticatedLearningRoute: typeof AuthenticatedLearningRoute
+  AuthenticatedMeetingsRoute: typeof AuthenticatedMeetingsRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedPromptsRoute: typeof AuthenticatedPromptsRoute
+  AuthenticatedQualityRoute: typeof AuthenticatedQualityRoute
+  AuthenticatedReportRoute: typeof AuthenticatedReportRoute
+  AuthenticatedResearchRoute: typeof AuthenticatedResearchRoute
+  AuthenticatedResponsibleAiRoute: typeof AuthenticatedResponsibleAiRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tasks': {
-      id: '/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof TasksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/responsible-ai': {
-      id: '/responsible-ai'
-      path: '/responsible-ai'
-      fullPath: '/responsible-ai'
-      preLoaderRoute: typeof ResponsibleAiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/research': {
-      id: '/research'
-      path: '/research'
-      fullPath: '/research'
-      preLoaderRoute: typeof ResearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/report': {
-      id: '/report'
-      path: '/report'
-      fullPath: '/report'
-      preLoaderRoute: typeof ReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quality': {
-      id: '/quality'
-      path: '/quality'
-      fullPath: '/quality'
-      preLoaderRoute: typeof QualityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/prompts': {
-      id: '/prompts'
-      path: '/prompts'
-      fullPath: '/prompts'
-      preLoaderRoute: typeof PromptsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/meetings': {
-      id: '/meetings'
-      path: '/meetings'
-      fullPath: '/meetings'
-      preLoaderRoute: typeof MeetingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learning': {
-      id: '/learning'
-      path: '/learning'
-      fullPath: '/learning'
-      preLoaderRoute: typeof LearningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/followup': {
-      id: '/followup'
-      path: '/followup'
-      fullPath: '/followup'
-      preLoaderRoute: typeof FollowupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/email': {
-      id: '/email'
-      path: '/email'
-      fullPath: '/email'
-      preLoaderRoute: typeof EmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/decision': {
-      id: '/decision'
-      path: '/decision'
-      fullPath: '/decision'
-      preLoaderRoute: typeof DecisionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/career': {
-      id: '/career'
-      path: '/career'
-      fullPath: '/career'
-      preLoaderRoute: typeof CareerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/actions': {
-      id: '/actions'
-      path: '/actions'
-      fullPath: '/actions'
-      preLoaderRoute: typeof ActionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/responsible-ai': {
+      id: '/_authenticated/responsible-ai'
+      path: '/responsible-ai'
+      fullPath: '/responsible-ai'
+      preLoaderRoute: typeof AuthenticatedResponsibleAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/research': {
+      id: '/_authenticated/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof AuthenticatedResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/report': {
+      id: '/_authenticated/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof AuthenticatedReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/quality': {
+      id: '/_authenticated/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof AuthenticatedQualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/prompts': {
+      id: '/_authenticated/prompts'
+      path: '/prompts'
+      fullPath: '/prompts'
+      preLoaderRoute: typeof AuthenticatedPromptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/meetings': {
+      id: '/_authenticated/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof AuthenticatedMeetingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/learning': {
+      id: '/_authenticated/learning'
+      path: '/learning'
+      fullPath: '/learning'
+      preLoaderRoute: typeof AuthenticatedLearningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/followup': {
+      id: '/_authenticated/followup'
+      path: '/followup'
+      fullPath: '/followup'
+      preLoaderRoute: typeof AuthenticatedFollowupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/email': {
+      id: '/_authenticated/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof AuthenticatedEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/decision': {
+      id: '/_authenticated/decision'
+      path: '/decision'
+      fullPath: '/decision'
+      preLoaderRoute: typeof AuthenticatedDecisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/career': {
+      id: '/_authenticated/career'
+      path: '/career'
+      fullPath: '/career'
+      preLoaderRoute: typeof AuthenticatedCareerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/actions': {
+      id: '/_authenticated/actions'
+      path: '/actions'
+      fullPath: '/actions'
+      preLoaderRoute: typeof AuthenticatedActionsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ActionsRoute: ActionsRoute,
-  CareerRoute: CareerRoute,
-  DecisionRoute: DecisionRoute,
-  EmailRoute: EmailRoute,
-  FollowupRoute: FollowupRoute,
-  LearningRoute: LearningRoute,
-  MeetingsRoute: MeetingsRoute,
-  ProfileRoute: ProfileRoute,
-  PromptsRoute: PromptsRoute,
-  QualityRoute: QualityRoute,
-  ReportRoute: ReportRoute,
-  ResearchRoute: ResearchRoute,
-  ResponsibleAiRoute: ResponsibleAiRoute,
-  SettingsRoute: SettingsRoute,
-  TasksRoute: TasksRoute,
+  AuthenticatedActionsRoute: AuthenticatedActionsRoute,
+  AuthenticatedCareerRoute: AuthenticatedCareerRoute,
+  AuthenticatedDecisionRoute: AuthenticatedDecisionRoute,
+  AuthenticatedEmailRoute: AuthenticatedEmailRoute,
+  AuthenticatedFollowupRoute: AuthenticatedFollowupRoute,
+  AuthenticatedLearningRoute: AuthenticatedLearningRoute,
+  AuthenticatedMeetingsRoute: AuthenticatedMeetingsRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedPromptsRoute: AuthenticatedPromptsRoute,
+  AuthenticatedQualityRoute: AuthenticatedQualityRoute,
+  AuthenticatedReportRoute: AuthenticatedReportRoute,
+  AuthenticatedResearchRoute: AuthenticatedResearchRoute,
+  AuthenticatedResponsibleAiRoute: AuthenticatedResponsibleAiRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

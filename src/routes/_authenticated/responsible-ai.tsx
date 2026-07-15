@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export const Route = createFileRoute("/responsible-ai")({
+export const Route = createFileRoute("/_authenticated/responsible-ai")({
   head: () => ({
     meta: [
       { title: "Responsible AI Center" },

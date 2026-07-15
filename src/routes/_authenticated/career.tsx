@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generateAI } from "@/lib/ai.functions";
 
-export const Route = createFileRoute("/career")({
+export const Route = createFileRoute("/_authenticated/career")({
   head: () => ({
     meta: [
       { title: "Career Assistant" },

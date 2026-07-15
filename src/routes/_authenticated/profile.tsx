@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "@/lib/store";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [{ title: "Profile" }, { name: "description", content: "Your profile." }],
   }),

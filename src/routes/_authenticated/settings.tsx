@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/settings")({
+export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [{ title: "Settings" }, { name: "description", content: "Configure preferences." }],
   }),

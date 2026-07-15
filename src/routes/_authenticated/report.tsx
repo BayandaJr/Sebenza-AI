@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { generateAI } from "@/lib/ai.functions";
 
-export const Route = createFileRoute("/report")({
+export const Route = createFileRoute("/_authenticated/report")({
   head: () => ({
     meta: [
       { title: "Weekly Report Generator" },

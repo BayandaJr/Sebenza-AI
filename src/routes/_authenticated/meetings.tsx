@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { generateAI } from "@/lib/ai.functions";
 import { bumpMetric } from "@/lib/store";
 
-export const Route = createFileRoute("/meetings")({
+export const Route = createFileRoute("/_authenticated/meetings")({
   head: () => ({
     meta: [
       { title: "Meeting Notes Summarizer" },
