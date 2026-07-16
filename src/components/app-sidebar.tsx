@@ -3,9 +3,10 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import {
   LayoutDashboard, Mail, FileText, ListChecks, BookOpen, Send, FileBarChart,
-  Library, ShieldCheck, KanbanSquare, Scale, GraduationCap, Briefcase, Sparkles,
+  Library, ShieldCheck, KanbanSquare, Scale, GraduationCap, Briefcase,
   Settings, User, Shield, Users,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
@@ -52,9 +53,7 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center gap-2 px-2 py-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground shadow-glow">
-            <Sparkles className="h-5 w-5" />
-          </div>
+          <BrandLogo size={36} className="shrink-0" />
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
             <span className="font-semibold text-sidebar-foreground">Sebenza AI</span>
             <span className="text-xs text-muted-foreground">Automate. Organize. Succeed.</span>

@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { BrandLogo } from "@/components/brand-logo";
 
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
