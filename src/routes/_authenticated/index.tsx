@@ -28,6 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { defaultMetrics, type Metrics } from "@/lib/store";
 import { Button } from "@/components/ui/button";
+import { RotatingTagline } from "@/components/rotating-tagline";
 
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
@@ -86,10 +87,18 @@ function Dashboard() {
 
   return (
     <div>
+      <div className="mb-6 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-primary-glow/10 p-6 shadow-glow">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Sebenza AI</h1>
+        <RotatingTagline className="mt-2 text-base font-medium text-primary min-h-[1.5rem] sm:text-lg" />
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+          Your AI-powered workplace command center. All your productivity intelligence at a glance.
+        </p>
+      </div>
+
       <PageHeader
         icon={Activity}
         title="Welcome back"
-        description="Your AI-powered workplace command center. All your productivity intelligence at a glance."
+        description="Jump back into your workflows or start something new."
         actions={
           <Button asChild>
             <Link to="/email">
