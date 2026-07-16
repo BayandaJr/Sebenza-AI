@@ -20,6 +20,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, Search, LogOut, LogIn } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { VoiceAssistantButton } from "@/components/voice-assistant";
 import { supabase } from "@/integrations/supabase/client";
 import {
   DropdownMenu,
@@ -128,6 +129,7 @@ function TopBar() {
         <Input placeholder="Search features, prompts, tasks…" className="pl-9" />
       </div>
       <div className="ml-auto flex items-center gap-2">
+        <VoiceAssistantButton />
         <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>

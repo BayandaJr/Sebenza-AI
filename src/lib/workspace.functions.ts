@@ -92,7 +92,7 @@ export const saveItem = createServerFn({ method: "POST" })
       user_id: context.userId,
       title: data.title,
       content: data.content,
-      meta: data.meta ?? {},
+      meta: (data.meta ?? {}) as never,
     });
     if (error) throw new Error(error.message);
     return { ok: true };
