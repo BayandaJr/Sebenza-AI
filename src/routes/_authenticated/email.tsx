@@ -24,7 +24,7 @@ import { bumpMetric } from "@/lib/store";
 export const Route = createFileRoute("/_authenticated/email")({
   head: () => ({
     meta: [
-      { title: "Smart Email Generator · AI Workplace" },
+      { title: "Smart Email Generator · Sebenza AI" },
       { name: "description", content: "Generate professional emails with AI in seconds." },
     ],
   }),

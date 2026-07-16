@@ -56,8 +56,8 @@ export function AppSidebar() {
             <Sparkles className="h-5 w-5" />
           </div>
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="font-semibold text-sidebar-foreground">Workplace</span>
-            <span className="text-xs text-muted-foreground">Assistant Pro</span>
+            <span className="font-semibold text-sidebar-foreground">Sebenza AI</span>
+            <span className="text-xs text-muted-foreground">Automate. Organize. Succeed.</span>
           </div>
         </div>
       </SidebarHeader>

@@ -32,10 +32,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
-      { title: "Dashboard · AI Workplace Assistant Pro" },
+      { title: "Dashboard · Sebenza AI" },
       {
         name: "description",
-        content: "Your enterprise AI productivity dashboard: metrics, insights, and quick actions.",
+        content: "Your Sebenza AI productivity dashboard: metrics, insights, and quick actions.",
       },
     ],
   }),
