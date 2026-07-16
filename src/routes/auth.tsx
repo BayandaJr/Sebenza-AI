@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { BrandLogo } from "@/components/brand-logo";
 
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
@@ -93,9 +93,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-primary/10 p-4">
       <Card className="glass-card w-full max-w-md">
         <CardHeader className="space-y-3 text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground shadow-glow">
-            <Sparkles className="h-6 w-6" />
-          </div>
+          <BrandLogo size={64} className="mx-auto" />
           <CardTitle className="text-2xl tracking-tight">Sebenza AI</CardTitle>
           <RotatingTagline className="text-sm text-muted-foreground min-h-[1.25rem]" />
         </CardHeader>
