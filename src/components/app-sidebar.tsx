@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   LayoutDashboard, Mail, FileText, ListChecks, BookOpen, Send, FileBarChart,
   Library, ShieldCheck, KanbanSquare, Scale, GraduationCap, Briefcase,
-  Settings, User, Shield, Users,
+  Settings, User, Shield, Users, Mic, FolderHeart,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 
@@ -16,6 +16,8 @@ import { getMyRoles } from "@/lib/auth.functions";
 
 const featureItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Sebenza Voice", url: "/voice", icon: Mic },
+  { title: "My Workspace", url: "/workspace", icon: FolderHeart },
   { title: "Smart Email", url: "/email", icon: Mail },
   { title: "Meeting Notes", url: "/meetings", icon: FileText },
   { title: "Task Planner", url: "/tasks", icon: ListChecks },

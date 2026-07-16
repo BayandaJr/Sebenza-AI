@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { User } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { User, Upload, Trash2, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -10,75 +10,223 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getMyProfile, updateMyProfile } from "@/lib/auth.functions";
+import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  getExtendedProfile,
+  updateExtendedProfile,
+  setAvatarPath,
+  removeAvatar,
+} from "@/lib/workspace.functions";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
-    meta: [{ title: "Profile" }, { name: "description", content: "Your profile." }],
+    meta: [{ title: "Profile · Sebenza AI" }, { name: "description", content: "Manage your Sebenza AI profile and AI personalization." }],
   }),
   component: ProfilePage,
 });
 
+const TONES = ["professional", "friendly", "formal", "persuasive", "empathetic", "concise"];
+const STYLES = ["concise", "detailed", "storytelling", "bulleted", "executive"];
+
 function ProfilePage() {
   const qc = useQueryClient();
-  const get = useServerFn(getMyProfile);
-  const upd = useServerFn(updateMyProfile);
-  const { data } = useQuery({ queryKey: ["my-profile"], queryFn: () => get() });
+  const get = useServerFn(getExtendedProfile);
+  const upd = useServerFn(updateExtendedProfile);
+  const setPath = useServerFn(setAvatarPath);
+  const rm = useServerFn(removeAvatar);
+  const { data } = useQuery({ queryKey: ["ext-profile"], queryFn: () => get() });
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  const [form, setForm] = useState({ name: "", role_title: "", company: "" });
+  const [form, setForm] = useState({
+    name: "",
+    role_title: "",
+    company: "",
+    department: "",
+    preferred_tone: "professional",
+    preferred_email_style: "concise",
+    working_hours_start: "09:00",
+    working_hours_end: "17:00",
+  });
+
   useEffect(() => {
-    if (data) setForm({ name: data.name ?? "", role_title: data.role_title ?? "", company: data.company ?? "" });
+    if (data?.profile) {
+      const p = data.profile;
+      setForm({
+        name: p.name ?? "",
+        role_title: p.role_title ?? "",
+        company: p.company ?? "",
+        department: p.department ?? "",
+        preferred_tone: p.preferred_tone ?? "professional",
+        preferred_email_style: p.preferred_email_style ?? "concise",
+        working_hours_start: p.working_hours_start ?? "09:00",
+        working_hours_end: p.working_hours_end ?? "17:00",
+      });
+    }
   }, [data]);
 
-  const mut = useMutation({
+  const save = useMutation({
     mutationFn: () => upd({ data: form }),
-    onSuccess: () => { toast.success("Profile saved"); qc.invalidateQueries({ queryKey: ["my-profile"] }); },
+    onSuccess: () => {
+      toast.success("Profile saved");
+      qc.invalidateQueries({ queryKey: ["ext-profile"] });
+    },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
-  const initials = (form.name || data?.email || "?").split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+  const uploadAvatar = async (file: File) => {
+    if (!/^image\/(png|jpe?g)$/i.test(file.type)) {
+      toast.error("Only PNG, JPG, JPEG allowed");
+      return;
+    }
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData.user?.id;
+    if (!uid) return;
+    const ext = file.name.split(".").pop() ?? "png";
+    const path = `${uid}/avatar-${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
+    if (error) return toast.error(error.message);
+    await setPath({ data: { path } });
+    toast.success("Photo updated");
+    qc.invalidateQueries({ queryKey: ["ext-profile"] });
+  };
+
+  const removePhoto = async () => {
+    await rm();
+    toast.success("Photo removed");
+    qc.invalidateQueries({ queryKey: ["ext-profile"] });
+  };
+
+  const initials = (form.name || data?.profile?.email || "?")
+    .split(" ")
+    .map((s: string) => s[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  const productivity = data?.profile?.productivity_score ?? 75;
 
   return (
     <div>
-      <PageHeader icon={User} title="Profile" description="How AI addresses you and tailors output." />
-      <div className="grid gap-6 lg:grid-cols-[280px,1fr]">
+      <PageHeader icon={User} title="Profile" description="How Sebenza AI addresses you and personalizes responses." />
+      <div className="grid gap-6 lg:grid-cols-[320px,1fr]">
         <Card className="glass-card">
           <CardContent className="flex flex-col items-center p-6 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-glow text-2xl font-semibold text-primary-foreground shadow-glow">
-              {initials}
+            <div className="relative">
+              {data?.avatarSignedUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={data.avatarSignedUrl}
+                  alt="Profile"
+                  className="h-24 w-24 rounded-full object-cover shadow-glow"
+                />
+              ) : (
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-glow text-3xl font-semibold text-primary-foreground shadow-glow">
+                  {initials}
+                </div>
+              )}
             </div>
             <p className="mt-4 font-semibold">{form.name || "Unnamed"}</p>
             <p className="text-sm text-muted-foreground">{form.role_title}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{form.company}</p>
-            <p className="mt-3 text-xs text-muted-foreground">{data?.email}</p>
-          </CardContent>
-        </Card>
-        <Card className="glass-card">
-          <CardHeader><CardTitle>Details</CardTitle></CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
-            <div>
-              <Label>Name</Label>
-              <Input className="mt-1.5" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            <p className="text-xs text-muted-foreground">{form.department} · {form.company}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{data?.profile?.email}</p>
+
+            <div className="mt-5 w-full space-y-2 text-left">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" /> Productivity Score</span>
+                <span className="font-semibold text-foreground">{productivity}%</span>
+              </div>
+              <Progress value={productivity} className="h-1.5" />
             </div>
-            <div>
-              <Label>Job title</Label>
-              <Input className="mt-1.5" value={form.role_title} onChange={(e) => setForm({ ...form, role_title: e.target.value })} />
-            </div>
-            <div>
-              <Label>Company</Label>
-              <Input className="mt-1.5" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
-            </div>
-            <div>
-              <Label>Email</Label>
-              <Input className="mt-1.5" value={data?.email ?? ""} disabled />
-            </div>
-            <div className="sm:col-span-2">
-              <Button onClick={() => mut.mutate()} disabled={mut.isPending}>
-                {mut.isPending ? "Saving…" : "Save"}
+
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/png,image/jpeg"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) uploadAvatar(f);
+              }}
+            />
+            <div className="mt-5 flex w-full gap-2">
+              <Button variant="outline" className="flex-1" onClick={() => fileRef.current?.click()}>
+                <Upload className="mr-1 h-4 w-4" /> {data?.avatarSignedUrl ? "Change" : "Upload"}
               </Button>
+              {data?.avatarSignedUrl && (
+                <Button variant="ghost" size="icon" onClick={removePhoto} aria-label="Remove photo">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              )}
             </div>
+            <p className="mt-2 text-[10px] text-muted-foreground">PNG, JPG, JPEG</p>
           </CardContent>
         </Card>
+
+        <div className="space-y-6">
+          <Card className="glass-card">
+            <CardHeader><CardTitle>Basic details</CardTitle></CardHeader>
+            <CardContent className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <Label>Full name</Label>
+                <Input className="mt-1.5" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              </div>
+              <div>
+                <Label>Role</Label>
+                <Input className="mt-1.5" value={form.role_title} onChange={(e) => setForm({ ...form, role_title: e.target.value })} />
+              </div>
+              <div>
+                <Label>Department</Label>
+                <Input className="mt-1.5" value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} />
+              </div>
+              <div>
+                <Label>Company</Label>
+                <Input className="mt-1.5" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
+              </div>
+              <div>
+                <Label>Email</Label>
+                <Input className="mt-1.5" value={data?.profile?.email ?? ""} disabled />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="glass-card">
+            <CardHeader><CardTitle>AI Personalization</CardTitle></CardHeader>
+            <CardContent className="grid gap-3 sm:grid-cols-2">
+              <div>
+                <Label>Preferred tone</Label>
+                <Select value={form.preferred_tone} onValueChange={(v) => setForm({ ...form, preferred_tone: v })}>
+                  <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                  <SelectContent>{TONES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Preferred email style</Label>
+                <Select value={form.preferred_email_style} onValueChange={(v) => setForm({ ...form, preferred_email_style: v })}>
+                  <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                  <SelectContent>{STYLES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Working hours start</Label>
+                <Input type="time" className="mt-1.5" value={form.working_hours_start} onChange={(e) => setForm({ ...form, working_hours_start: e.target.value })} />
+              </div>
+              <div>
+                <Label>Working hours end</Label>
+                <Input type="time" className="mt-1.5" value={form.working_hours_end} onChange={(e) => setForm({ ...form, working_hours_end: e.target.value })} />
+              </div>
+              <p className="sm:col-span-2 text-xs text-muted-foreground">
+                Sebenza AI uses these to tailor tone, format, and scheduling suggestions in every workflow.
+              </p>
+            </CardContent>
+          </Card>
+
+          <div>
+            <Button onClick={() => save.mutate()} disabled={save.isPending}>
+              {save.isPending ? "Saving…" : "Save changes"}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
