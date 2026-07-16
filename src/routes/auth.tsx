@@ -11,6 +11,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { RotatingTagline } from "@/components/rotating-tagline";
 
 const searchSchema = z.object({ redirect: z.string().optional() });
 
@@ -18,8 +19,8 @@ export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Sign in — AI Workplace Assistant Pro" },
-      { name: "description", content: "Sign in or create your account." },
+      { title: "Sign in — Sebenza AI" },
+      { name: "description", content: "Sign in or create your Sebenza AI account." },
     ],
   }),
   component: AuthPage,
@@ -95,8 +96,8 @@ function AuthPage() {
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground shadow-glow">
             <Sparkles className="h-6 w-6" />
           </div>
-          <CardTitle className="text-2xl">AI Workplace Assistant Pro</CardTitle>
-          <p className="text-sm text-muted-foreground">Sign in to access your workspace</p>
+          <CardTitle className="text-2xl tracking-tight">Sebenza AI</CardTitle>
+          <RotatingTagline className="text-sm text-muted-foreground min-h-[1.25rem]" />
         </CardHeader>
         <CardContent>
           <Button variant="outline" className="mb-4 w-full" onClick={google} disabled={loading}>
