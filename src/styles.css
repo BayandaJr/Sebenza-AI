@@ -177,3 +177,25 @@
   .no-print { display: none !important; }
   body { background: white !important; }
 }
+
+/* Accent color overrides driven by <html data-accent="..."> */
+:root[data-accent="teal"] {
+  --primary: oklch(0.65 0.14 190);
+  --primary-glow: oklch(0.75 0.12 190);
+  --ring: oklch(0.65 0.14 190);
+}
+:root[data-accent="gold"] {
+  --primary: oklch(0.75 0.16 80);
+  --primary-glow: oklch(0.82 0.14 80);
+  --ring: oklch(0.75 0.16 80);
+}
+:root[data-accent="purple"] {
+  --primary: oklch(0.6 0.2 300);
+  --primary-glow: oklch(0.72 0.17 300);
+  --ring: oklch(0.6 0.2 300);
+}
+:root[data-accent="rose"] {
+  --primary: oklch(0.65 0.22 15);
+  --primary-glow: oklch(0.75 0.18 15);
+  --ring: oklch(0.65 0.22 15);
+}
