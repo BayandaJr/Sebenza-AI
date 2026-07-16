@@ -16,31 +16,88 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
+          accent_color: string
+          avatar_url: string
           company: string
           created_at: string
+          dashboard_layout: string
+          department: string
           email: string
           id: string
           name: string
+          preferred_email_style: string
+          preferred_tone: string
+          productivity_score: number
           role_title: string
+          sidebar_layout: string
           updated_at: string
+          working_hours_end: string
+          working_hours_start: string
         }
         Insert: {
+          accent_color?: string
+          avatar_url?: string
           company?: string
           created_at?: string
+          dashboard_layout?: string
+          department?: string
           email?: string
           id: string
           name?: string
+          preferred_email_style?: string
+          preferred_tone?: string
+          productivity_score?: number
           role_title?: string
+          sidebar_layout?: string
           updated_at?: string
+          working_hours_end?: string
+          working_hours_start?: string
         }
         Update: {
+          accent_color?: string
+          avatar_url?: string
           company?: string
           created_at?: string
+          dashboard_layout?: string
+          department?: string
           email?: string
           id?: string
           name?: string
+          preferred_email_style?: string
+          preferred_tone?: string
+          productivity_score?: number
           role_title?: string
+          sidebar_layout?: string
           updated_at?: string
+          working_hours_end?: string
+          working_hours_start?: string
+        }
+        Relationships: []
+      }
+      prompt_history: {
+        Row: {
+          created_at: string
+          feature: string
+          id: string
+          prompt: string
+          response: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          feature?: string
+          id?: string
+          prompt: string
+          response?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          feature?: string
+          id?: string
+          prompt?: string
+          response?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -68,6 +125,114 @@ export type Database = {
           id?: number
           updated_at?: string
           updated_by?: string | null
+        }
+        Relationships: []
+      }
+      saved_emails: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          meta: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_meetings: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          meta: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_reports: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          meta: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_research: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          meta: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          title?: string
+          user_id?: string
         }
         Relationships: []
       }
