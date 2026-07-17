@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Settings as SettingsIcon, Palette, Layout } from "lucide-react";
+import { Settings as SettingsIcon, Palette, Layout, PlayCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { getExtendedProfile, updateExtendedProfile } from "@/lib/workspace.functions";
+import { restartOnboarding } from "@/components/onboarding-tour";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
