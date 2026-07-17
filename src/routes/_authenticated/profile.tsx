@@ -197,11 +197,12 @@ function ProfilePage() {
             <input
               ref={fileRef}
               type="file"
-              accept="image/png,image/jpeg"
+              accept={ACCEPT}
               className="hidden"
               onChange={(e) => {
                 const f = e.target.files?.[0];
-                if (f) uploadAvatar(f);
+                if (f) onPick(f);
+                e.target.value = "";
               }}
             />
             <div className="mt-5 flex w-full gap-2">
@@ -214,9 +215,49 @@ function ProfilePage() {
                 </Button>
               )}
             </div>
-            <p className="mt-2 text-[10px] text-muted-foreground">PNG, JPG, JPEG</p>
+            <p className="mt-2 text-[10px] text-muted-foreground">PNG, JPG, JPEG, WEBP · up to 5MB</p>
           </CardContent>
         </Card>
+
+        <Dialog open={!!rawImage} onOpenChange={(o) => !o && setRawImage(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2"><Crop className="h-4 w-4" /> Crop your profile picture</DialogTitle>
+              <DialogDescription>Preview and zoom your photo. It will be cropped to a square and saved as WEBP.</DialogDescription>
+            </DialogHeader>
+            {rawImage && (
+              <div className="space-y-4">
+                <div className="mx-auto h-56 w-56 overflow-hidden rounded-full border-2 border-primary/40 bg-muted">
+                  <img
+                    ref={imgRef}
+                    src={rawImage}
+                    alt="Preview"
+                    className="h-full w-full object-cover"
+                    style={{ transform: `scale(${zoom})`, transformOrigin: "center" }}
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs">Zoom</Label>
+                  <Slider
+                    value={[zoom]}
+                    min={1}
+                    max={3}
+                    step={0.05}
+                    onValueChange={(v) => setZoom(v[0])}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="ghost" onClick={() => setRawImage(null)} disabled={uploading}>Cancel</Button>
+              <Button onClick={cropAndUpload} disabled={uploading}>
+                {uploading ? "Saving…" : "Save photo"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
 
         <div className="space-y-6">
           <Card className="glass-card">
