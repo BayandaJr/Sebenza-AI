@@ -125,7 +125,7 @@ function TopBar() {
     navigate({ to: "/auth", replace: true });
   };
 
-  const initials = (email ?? "?").slice(0, 2).toUpperCase();
+  
 
   return (
     <header className="no-print sticky top-0 z-10 flex h-14 items-center gap-3 border-b border-border/60 bg-background/60 px-3 backdrop-blur-md">
