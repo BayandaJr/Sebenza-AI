@@ -181,7 +181,7 @@ function AuthSubscriber() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (r) => r.location.pathname });
-  const isAuthPage = pathname === "/auth";
+  const isAuthPage = pathname === "/auth" || pathname === "/reset-password";
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -198,6 +198,7 @@ function RootComponent() {
                 <main className="flex-1 p-4 md:p-6 lg:p-8"><Outlet /></main>
               </div>
             </div>
+            <OnboardingTour />
           </SidebarProvider>
         )}
         <Toaster richColors position="top-right" />
