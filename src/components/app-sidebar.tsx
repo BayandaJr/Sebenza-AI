@@ -51,6 +51,9 @@ export function AppSidebar() {
     staleTime: 60_000,
   });
   const isAdmin = roles?.isAdmin ?? false;
+  const { data: profileData } = useProfile();
+  const displayName = profileData?.profile?.name || profileData?.profile?.email || "Your account";
+  const displayRole = profileData?.profile?.role_title || "Sebenza AI";
 
 
   return (
