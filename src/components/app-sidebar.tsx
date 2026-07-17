@@ -7,10 +7,12 @@ import {
   Settings, User, Shield, Users, Mic, FolderHeart,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
+import { UserAvatar } from "@/components/user-avatar";
+import { useProfile } from "@/hooks/use-profile";
 
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
-  SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
+  SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getMyRoles } from "@/lib/auth.functions";
 
