@@ -120,6 +120,18 @@ export function AppSidebar() {
           </SidebarGroup>
         )}
       </SidebarContent>
+      <SidebarFooter className="border-t border-sidebar-border">
+        <Link
+          to="/profile"
+          className="flex items-center gap-2 rounded-md px-2 py-2 transition-colors hover:bg-sidebar-accent"
+        >
+          <UserAvatar size={32} className="shrink-0" fallback={displayName} />
+          <div className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
+            <span className="truncate text-sm font-medium text-sidebar-foreground">{displayName}</span>
+            <span className="truncate text-[11px] text-muted-foreground">{displayRole}</span>
+          </div>
+        </Link>
+      </SidebarFooter>
     </Sidebar>
   );
 }
