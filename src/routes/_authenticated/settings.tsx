@@ -151,12 +151,23 @@ function SettingsPage() {
         </Card>
 
         <Card className="glass-card md:col-span-2">
+          <CardHeader><CardTitle className="flex items-center gap-1.5"><PlayCircle className="h-4 w-4" /> Onboarding</CardTitle></CardHeader>
+          <CardContent className="flex items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">Replay the welcome tour anytime to revisit Sebenza AI's key features.</p>
+            <Button variant="outline" onClick={() => { restartOnboarding(); toast.success("Tutorial restarted"); }}>
+              Restart tutorial
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-card md:col-span-2">
           <CardHeader><CardTitle>Data</CardTitle></CardHeader>
           <CardContent className="flex items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">Reset local workspace demo data (metrics, prompts, actions, progress).</p>
             <Button variant="destructive" onClick={reset}>Reset workspace data</Button>
           </CardContent>
         </Card>
+
       </div>
     </div>
   );
