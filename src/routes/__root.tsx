@@ -22,6 +22,8 @@ import { Moon, Sun, Search, LogOut, LogIn } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { VoiceAssistantButton } from "@/components/voice-assistant";
 import { supabase } from "@/integrations/supabase/client";
+import { UserAvatar } from "@/components/user-avatar";
+import { OnboardingTour } from "@/components/onboarding-tour";
 import {
   DropdownMenu,
   DropdownMenuContent,
