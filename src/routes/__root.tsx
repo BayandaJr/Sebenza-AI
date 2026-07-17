@@ -142,8 +142,8 @@ function TopBar() {
         {email ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-glow text-xs font-semibold text-primary-foreground">
-                {initials}
+              <button className="rounded-full ring-offset-background transition-all hover:ring-2 hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Account menu">
+                <UserAvatar size={32} fallback={email} />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
