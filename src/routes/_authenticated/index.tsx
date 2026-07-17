@@ -64,6 +64,8 @@ const quickActions = [
 
 function Dashboard() {
   const [m, setM] = useState<Metrics>(defaultMetrics);
+  const { data: profile } = useProfile();
+  const firstName = (profile?.profile?.name || profile?.profile?.email || "there").split(/[\s@]/)[0];
   useEffect(() => {
     const load = () => {
       try {
