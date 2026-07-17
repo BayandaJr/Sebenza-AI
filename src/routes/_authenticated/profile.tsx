@@ -81,22 +81,71 @@ function ProfilePage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
-  const uploadAvatar = async (file: File) => {
-    if (!/^image\/(png|jpe?g)$/i.test(file.type)) {
-      toast.error("Only PNG, JPG, JPEG allowed");
+  // Crop / preview state
+  const [rawImage, setRawImage] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [uploading, setUploading] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const onPick = (file: File) => {
+    if (!/^image\/(png|jpe?g|webp)$/i.test(file.type)) {
+      toast.error("Only PNG, JPG, JPEG, WEBP allowed");
       return;
     }
-    const { data: userData } = await supabase.auth.getUser();
-    const uid = userData.user?.id;
-    if (!uid) return;
-    const ext = file.name.split(".").pop() ?? "png";
-    const path = `${uid}/avatar-${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
-    if (error) return toast.error(error.message);
-    await setPath({ data: { path } });
-    toast.success("Photo updated");
-    qc.invalidateQueries({ queryKey: ["ext-profile"] });
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be under 5MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setRawImage(String(reader.result));
+      setZoom(1);
+    };
+    reader.readAsDataURL(file);
   };
+
+  const cropAndUpload = async () => {
+    if (!rawImage || !imgRef.current) return;
+    setUploading(true);
+    try {
+      const img = new Image();
+      img.src = rawImage;
+      await new Promise((r, j) => { img.onload = r; img.onerror = j; });
+      const size = Math.min(img.width, img.height);
+      const sx = (img.width - size) / 2;
+      const sy = (img.height - size) / 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = OUTPUT_SIZE;
+      canvas.height = OUTPUT_SIZE;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas unavailable");
+      // Apply zoom by shrinking source area
+      const zoomedSize = size / Math.max(1, zoom);
+      const zsx = sx + (size - zoomedSize) / 2;
+      const zsy = sy + (size - zoomedSize) / 2;
+      ctx.drawImage(img, zsx, zsy, zoomedSize, zoomedSize, 0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
+      const blob: Blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Encode failed"))), "image/webp", 0.9),
+      );
+      const { data: userData } = await supabase.auth.getUser();
+      const uid = userData.user?.id;
+      if (!uid) throw new Error("Not signed in");
+      const path = `${uid}/avatar-${Date.now()}.webp`;
+      const { error } = await supabase.storage
+        .from("avatars")
+        .upload(path, blob, { upsert: true, contentType: "image/webp" });
+      if (error) throw new Error(error.message);
+      await setPath({ data: { path } });
+      toast.success("Profile photo updated");
+      qc.invalidateQueries({ queryKey: ["ext-profile"] });
+      setRawImage(null);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
 
   const removePhoto = async () => {
     await rm();
