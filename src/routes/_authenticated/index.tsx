@@ -29,6 +29,8 @@ import { Progress } from "@/components/ui/progress";
 import { defaultMetrics, type Metrics } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { RotatingTagline } from "@/components/rotating-tagline";
+import { UserAvatar } from "@/components/user-avatar";
+import { useProfile } from "@/hooks/use-profile";
 
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
