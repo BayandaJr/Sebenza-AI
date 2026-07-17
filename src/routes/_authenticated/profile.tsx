@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { User, Upload, Trash2, TrendingUp } from "lucide-react";
+import { User, Upload, Trash2, TrendingUp, Crop } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -12,6 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
+} from "@/components/ui/dialog";
+import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import {
   getExtendedProfile,
@@ -29,6 +33,8 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 const TONES = ["professional", "friendly", "formal", "persuasive", "empathetic", "concise"];
 const STYLES = ["concise", "detailed", "storytelling", "bulleted", "executive"];
+const ACCEPT = "image/png,image/jpeg,image/jpg,image/webp";
+const OUTPUT_SIZE = 512;
 
 function ProfilePage() {
   const qc = useQueryClient();
