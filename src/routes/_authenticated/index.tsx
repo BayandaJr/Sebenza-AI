@@ -29,6 +29,8 @@ import { Progress } from "@/components/ui/progress";
 import { defaultMetrics, type Metrics } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { RotatingTagline } from "@/components/rotating-tagline";
+import { UserAvatar } from "@/components/user-avatar";
+import { useProfile } from "@/hooks/use-profile";
 
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
@@ -62,6 +64,8 @@ const quickActions = [
 
 function Dashboard() {
   const [m, setM] = useState<Metrics>(defaultMetrics);
+  const { data: profile } = useProfile();
+  const firstName = (profile?.profile?.name || profile?.profile?.email || "there").split(/[\s@]/)[0];
   useEffect(() => {
     const load = () => {
       try {
@@ -87,13 +91,19 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="mb-6 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-primary-glow/10 p-6 shadow-glow">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Sebenza AI</h1>
-        <RotatingTagline className="mt-2 text-base font-medium text-primary min-h-[1.5rem] sm:text-lg" />
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          Your AI-powered workplace command center. All your productivity intelligence at a glance.
-        </p>
+      <div className="mb-6 flex items-start gap-4 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/10 via-background to-primary-glow/10 p-6 shadow-glow">
+        <UserAvatar size={64} className="hidden shrink-0 shadow-glow sm:flex" />
+        <div className="flex-1">
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Welcome back, <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">{firstName}</span>
+          </h1>
+          <RotatingTagline className="mt-2 text-base font-medium text-primary min-h-[1.5rem] sm:text-lg" />
+          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+            Your AI-powered workplace command center. All your productivity intelligence at a glance.
+          </p>
+        </div>
       </div>
+
 
       <PageHeader
         icon={Activity}

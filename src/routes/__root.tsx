@@ -22,6 +22,8 @@ import { Moon, Sun, Search, LogOut, LogIn } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { VoiceAssistantButton } from "@/components/voice-assistant";
 import { supabase } from "@/integrations/supabase/client";
+import { UserAvatar } from "@/components/user-avatar";
+import { OnboardingTour } from "@/components/onboarding-tour";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -123,7 +125,7 @@ function TopBar() {
     navigate({ to: "/auth", replace: true });
   };
 
-  const initials = (email ?? "?").slice(0, 2).toUpperCase();
+  
 
   return (
     <header className="no-print sticky top-0 z-10 flex h-14 items-center gap-3 border-b border-border/60 bg-background/60 px-3 backdrop-blur-md">
@@ -140,8 +142,8 @@ function TopBar() {
         {email ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-glow text-xs font-semibold text-primary-foreground">
-                {initials}
+              <button className="rounded-full ring-offset-background transition-all hover:ring-2 hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="Account menu">
+                <UserAvatar size={32} fallback={email} />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -179,7 +181,7 @@ function AuthSubscriber() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (r) => r.location.pathname });
-  const isAuthPage = pathname === "/auth";
+  const isAuthPage = pathname === "/auth" || pathname === "/reset-password";
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -196,6 +198,7 @@ function RootComponent() {
                 <main className="flex-1 p-4 md:p-6 lg:p-8"><Outlet /></main>
               </div>
             </div>
+            <OnboardingTour />
           </SidebarProvider>
         )}
         <Toaster richColors position="top-right" />

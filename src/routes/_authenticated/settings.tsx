@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Settings as SettingsIcon, Palette, Layout } from "lucide-react";
+import { Settings as SettingsIcon, Palette, Layout, PlayCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { getExtendedProfile, updateExtendedProfile } from "@/lib/workspace.functions";
+import { restartOnboarding } from "@/components/onboarding-tour";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -150,12 +151,23 @@ function SettingsPage() {
         </Card>
 
         <Card className="glass-card md:col-span-2">
+          <CardHeader><CardTitle className="flex items-center gap-1.5"><PlayCircle className="h-4 w-4" /> Onboarding</CardTitle></CardHeader>
+          <CardContent className="flex items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">Replay the welcome tour anytime to revisit Sebenza AI's key features.</p>
+            <Button variant="outline" onClick={() => { restartOnboarding(); toast.success("Tutorial restarted"); }}>
+              Restart tutorial
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-card md:col-span-2">
           <CardHeader><CardTitle>Data</CardTitle></CardHeader>
           <CardContent className="flex items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">Reset local workspace demo data (metrics, prompts, actions, progress).</p>
             <Button variant="destructive" onClick={reset}>Reset workspace data</Button>
           </CardContent>
         </Card>
+
       </div>
     </div>
   );

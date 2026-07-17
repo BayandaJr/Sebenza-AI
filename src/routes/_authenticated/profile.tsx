@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { User, Upload, Trash2, TrendingUp } from "lucide-react";
+import { User, Upload, Trash2, TrendingUp, Crop } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/page-header";
@@ -12,6 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
+} from "@/components/ui/dialog";
+import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import {
   getExtendedProfile,
@@ -29,6 +33,8 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 const TONES = ["professional", "friendly", "formal", "persuasive", "empathetic", "concise"];
 const STYLES = ["concise", "detailed", "storytelling", "bulleted", "executive"];
+const ACCEPT = "image/png,image/jpeg,image/jpg,image/webp";
+const OUTPUT_SIZE = 512;
 
 function ProfilePage() {
   const qc = useQueryClient();
@@ -75,22 +81,71 @@ function ProfilePage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
-  const uploadAvatar = async (file: File) => {
-    if (!/^image\/(png|jpe?g)$/i.test(file.type)) {
-      toast.error("Only PNG, JPG, JPEG allowed");
+  // Crop / preview state
+  const [rawImage, setRawImage] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [uploading, setUploading] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const onPick = (file: File) => {
+    if (!/^image\/(png|jpe?g|webp)$/i.test(file.type)) {
+      toast.error("Only PNG, JPG, JPEG, WEBP allowed");
       return;
     }
-    const { data: userData } = await supabase.auth.getUser();
-    const uid = userData.user?.id;
-    if (!uid) return;
-    const ext = file.name.split(".").pop() ?? "png";
-    const path = `${uid}/avatar-${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
-    if (error) return toast.error(error.message);
-    await setPath({ data: { path } });
-    toast.success("Photo updated");
-    qc.invalidateQueries({ queryKey: ["ext-profile"] });
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be under 5MB");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setRawImage(String(reader.result));
+      setZoom(1);
+    };
+    reader.readAsDataURL(file);
   };
+
+  const cropAndUpload = async () => {
+    if (!rawImage || !imgRef.current) return;
+    setUploading(true);
+    try {
+      const img = new Image();
+      img.src = rawImage;
+      await new Promise((r, j) => { img.onload = r; img.onerror = j; });
+      const size = Math.min(img.width, img.height);
+      const sx = (img.width - size) / 2;
+      const sy = (img.height - size) / 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = OUTPUT_SIZE;
+      canvas.height = OUTPUT_SIZE;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas unavailable");
+      // Apply zoom by shrinking source area
+      const zoomedSize = size / Math.max(1, zoom);
+      const zsx = sx + (size - zoomedSize) / 2;
+      const zsy = sy + (size - zoomedSize) / 2;
+      ctx.drawImage(img, zsx, zsy, zoomedSize, zoomedSize, 0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
+      const blob: Blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Encode failed"))), "image/webp", 0.9),
+      );
+      const { data: userData } = await supabase.auth.getUser();
+      const uid = userData.user?.id;
+      if (!uid) throw new Error("Not signed in");
+      const path = `${uid}/avatar-${Date.now()}.webp`;
+      const { error } = await supabase.storage
+        .from("avatars")
+        .upload(path, blob, { upsert: true, contentType: "image/webp" });
+      if (error) throw new Error(error.message);
+      await setPath({ data: { path } });
+      toast.success("Profile photo updated");
+      qc.invalidateQueries({ queryKey: ["ext-profile"] });
+      setRawImage(null);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
 
   const removePhoto = async () => {
     await rm();
@@ -142,11 +197,12 @@ function ProfilePage() {
             <input
               ref={fileRef}
               type="file"
-              accept="image/png,image/jpeg"
+              accept={ACCEPT}
               className="hidden"
               onChange={(e) => {
                 const f = e.target.files?.[0];
-                if (f) uploadAvatar(f);
+                if (f) onPick(f);
+                e.target.value = "";
               }}
             />
             <div className="mt-5 flex w-full gap-2">
@@ -159,9 +215,49 @@ function ProfilePage() {
                 </Button>
               )}
             </div>
-            <p className="mt-2 text-[10px] text-muted-foreground">PNG, JPG, JPEG</p>
+            <p className="mt-2 text-[10px] text-muted-foreground">PNG, JPG, JPEG, WEBP · up to 5MB</p>
           </CardContent>
         </Card>
+
+        <Dialog open={!!rawImage} onOpenChange={(o) => !o && setRawImage(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2"><Crop className="h-4 w-4" /> Crop your profile picture</DialogTitle>
+              <DialogDescription>Preview and zoom your photo. It will be cropped to a square and saved as WEBP.</DialogDescription>
+            </DialogHeader>
+            {rawImage && (
+              <div className="space-y-4">
+                <div className="mx-auto h-56 w-56 overflow-hidden rounded-full border-2 border-primary/40 bg-muted">
+                  <img
+                    ref={imgRef}
+                    src={rawImage}
+                    alt="Preview"
+                    className="h-full w-full object-cover"
+                    style={{ transform: `scale(${zoom})`, transformOrigin: "center" }}
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs">Zoom</Label>
+                  <Slider
+                    value={[zoom]}
+                    min={1}
+                    max={3}
+                    step={0.05}
+                    onValueChange={(v) => setZoom(v[0])}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="ghost" onClick={() => setRawImage(null)} disabled={uploading}>Cancel</Button>
+              <Button onClick={cropAndUpload} disabled={uploading}>
+                {uploading ? "Saving…" : "Save photo"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
 
         <div className="space-y-6">
           <Card className="glass-card">

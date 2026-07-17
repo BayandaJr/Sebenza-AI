@@ -7,10 +7,12 @@ import {
   Settings, User, Shield, Users, Mic, FolderHeart,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
+import { UserAvatar } from "@/components/user-avatar";
+import { useProfile } from "@/hooks/use-profile";
 
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
-  SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
+  SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getMyRoles } from "@/lib/auth.functions";
 
@@ -49,6 +51,9 @@ export function AppSidebar() {
     staleTime: 60_000,
   });
   const isAdmin = roles?.isAdmin ?? false;
+  const { data: profileData } = useProfile();
+  const displayName = profileData?.profile?.name || profileData?.profile?.email || "Your account";
+  const displayRole = profileData?.profile?.role_title || "Sebenza AI";
 
 
   return (
@@ -115,6 +120,18 @@ export function AppSidebar() {
           </SidebarGroup>
         )}
       </SidebarContent>
+      <SidebarFooter className="border-t border-sidebar-border">
+        <Link
+          to="/profile"
+          className="flex items-center gap-2 rounded-md px-2 py-2 transition-colors hover:bg-sidebar-accent"
+        >
+          <UserAvatar size={32} className="shrink-0" fallback={displayName} />
+          <div className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
+            <span className="truncate text-sm font-medium text-sidebar-foreground">{displayName}</span>
+            <span className="truncate text-[11px] text-muted-foreground">{displayRole}</span>
+          </div>
+        </Link>
+      </SidebarFooter>
     </Sidebar>
   );
 }
